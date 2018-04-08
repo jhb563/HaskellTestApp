@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    machine:
+      ghc:
+        version: 8.2.2
     steps:
       - checkout
       - run: echo "hello world"
