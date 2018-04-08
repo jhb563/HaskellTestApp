@@ -5,6 +5,7 @@
 
 module Server
   ( runServer
+  , myFunction
   ) where
 
 import Data.Proxy (Proxy(..))
@@ -28,3 +29,6 @@ runServer :: IO ()
 runServer = do
   port <- read <$> getEnv "PORT"
   run port (serve myAPI myServer)
+
+myFunction :: Int -> Int -> Int -> Int
+myFunction a b c = a * b + c
