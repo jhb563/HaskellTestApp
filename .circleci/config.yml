@@ -1,9 +1,22 @@
 version: 2
 jobs:
-  build:
+  build_project:
     machine:
       ghc:
         version: 8.2.2
     steps:
       - checkout
-      - run: echo "hello world"
+      - run: wget https://github.com/commercialhaskell/stack/releases/download/v1.6.1/stack-1.6.1-x86_64-linux.gz -O /tmp/stack.gz
+      - run: gunzip /tmp/stack.gz && chmod +x /tmp/stack
+      - run: sudo mv /tmp/stack/usr/bin/stack
+      - run: stack setup
+      - run: stack install hlint
+      - run: stack build
+      - run: hlint
+      - run: stack test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_project
