@@ -3,7 +3,7 @@ jobs:
   build_project:
     machine:
       ghc:
-        version: 8.2.2
+        version: 7.10.3
     steps:
       - checkout
       - run: wget https://github.com/commercialhaskell/stack/releases/download/v1.6.1/stack-1.6.1-linux-x86_64.tar.gz -O /tmp/stack.gz
