@@ -3,12 +3,12 @@ jobs:
   build_project:
     machine:
       ghc:
-        version: 11.5.6
+        version: 8.2.2
     steps:
       - checkout
-      - run: wget https://github.com/commercialhaskell/stack/releases/download/v1.6.1/stack-1.6.1-linux-x86_64-static.tar.gz -O /tmp/stack.gz
-      - run: gunzip /tmp/stack.gz && chmod +x /tmp/stack
-      - run: sudo mv /tmp/stack /usr/bin/stack
+      - run: wget https://github.com/commercialhaskell/stack/releases/download/v1.6.1/stack-1.6.1-linux-x86_64.tar.gz -O /tmp/stack.tar.gz
+      - run: tar -xzf /tmp/stack.tar.gz && chmod +x /tmp/stack-1.6.1-linux-x86_64/stack
+      - run: sudo mv /tmp/stack-1.6.1-linux-x86_64/stack /usr/bin/stack
       - run: stack setup
       - run: stack install hlint
       - run: stack build
