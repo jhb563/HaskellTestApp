@@ -1,9 +1,7 @@
 version: 2
 jobs:
   build_project:
-    machine:
-      ghc:
-        version: 8.2.2
+    machine: true
     steps:
       - checkout
       - restore-cache:
