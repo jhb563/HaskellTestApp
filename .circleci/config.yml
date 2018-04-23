@@ -1,16 +1,15 @@
 version: 2
 jobs:
   build_project:
-    docker:
-      - image: haskell:8.0.2
+    machine: true
     steps:
       - checkout
       - restore-cache:
           keys:
             - stack-work-{{ checksum "stack.yaml" }}-{{ checksum "HaskellTestApp.cabal" }}
-      - run: stack setup
-      - run: stack build
-      - run: stack test
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - run: docker build -t registry.heroku.com/my-new-haskell-app/web:$CIRCLE_BRANCH
+      - run: docker push registry.heroku.com/my-new-haskell-app/web:$CIRCLE_BRANCH
       - save_cache:
           key: stack-work-{{ checksum "stack.yaml" }}-{{ checksum "HaskellTestApp.cabal" }}
           paths:
