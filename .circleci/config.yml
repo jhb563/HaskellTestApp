@@ -5,6 +5,7 @@ jobs:
     steps:
       - checkout
       - run: bash .circleci/setup_heroku.sh
+      - run: echo $DOCKER_PASSWORD | docker login --username=$DOCKER_USERNAME --password-stdin
       - run: docker build -t registry.heroku.com/$HEROKU_APP/web:$CIRCLE_BRANCH .
       - run: docker push registry.heroku.com/$HEROKU_APP/web:$CIRCLE_BRANCH
 
