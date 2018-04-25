@@ -6,9 +6,16 @@ jobs:
       - checkout
       - run: bash .circleci/setup_heroku.sh
       - run: echo $DOCKER_PASSWORD | docker login --username=$DOCKER_USERNAME --password-stdin
+      - restore-cache:
+          keys:
+            - stack-work-v1-{{checksum "stack.yaml"}}-{{checksum "HaskellTestApp.cabal"}}
       - run: docker pull registry.heroku.com/$HEROKU_APP/web:$CIRCLE_BRANCH
       - run: docker build -t registry.heroku.com/$HEROKU_APP/web:$CIRCLE_BRANCH .
       - run: docker push registry.heroku.com/$HEROKU_APP/web:$CIRCLE_BRANCH
+      - save_cache:
+          key: stack-work-v1-{{checksum "stack.yaml"}}-{{checksum "HaskellTestApp.cabal"}}
+          paths:
+            - ".stack-work"
 
 workflows:
   version: 2
