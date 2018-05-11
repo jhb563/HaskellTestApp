@@ -17,7 +17,7 @@ import Servant.Server
 type MyAPI = "api" :> "ping" :> Get '[JSON] String
 
 pingHandler :: Handler String
-pingHandler = return "Again"
+pingHandler = return "Take 5"
 
 myAPI :: Proxy MyAPI
 myAPI = Proxy :: Proxy MyAPI
